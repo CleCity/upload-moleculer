@@ -1,0 +1,28 @@
+{
+  "name": "upload-moleculer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "moleculer-runner --repl --hot services"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CleCity/upload-moleculer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CleCity/upload-moleculer/issues"
+  },
+  "homepage": "https://github.com/CleCity/upload-moleculer#readme",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "gm": "^1.23.1",
+    "moleculer": "^0.13.12",
+    "moleculer-repl": "^0.6.2",
+    "moleculer-web": "^0.9.0-rc1",
+    "uuid": "^3.4.0"
+  }
+}

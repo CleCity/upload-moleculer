@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  rabbitMQ:
+      image: rabbitmq:3.7.16-rc.3-management-alpine
+      ports:
+        - "5672:5672"
+      restart: on-failure
