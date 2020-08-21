@@ -10,7 +10,7 @@ module.exports = {
     // More info about settings: https://moleculer.services/docs/0.13/moleculer-web.html
     settings: {
         path:"/upload",
-        port: process.env.PORT || 3003,
+        port: process.env.PORT || 3001,
         routes: [
             {
                 path: "",
@@ -22,7 +22,7 @@ module.exports = {
                 },
 
                 aliases: {
-                    "GET /": "assets.ping",
+                    "GET /ping": "assets.ping",
                     "POST /": "multipart:assets.thumbnail"
                 },
                 mappingPolicy: "restrict"

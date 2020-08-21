@@ -42,6 +42,7 @@ class AssetsService extends Service {
                     handler(ctx){
                         return new this.Promise(async (res,rej) => {
                             const name = uuidv4();
+                            console.log(ctx.params);
                             gm(ctx.params).selectFrame(0).write(`./${name}.jpg`,async err => {
                                 if (err) rej(err)
                                 const thumbnail = await Fs.readFile(`./${name}.jpg`)
@@ -88,60 +89,6 @@ class AssetsService extends Service {
      */
     async ping() {
         return "pong"
-    }
-
-    /** Get thumbnails of a PDF
-     * @returns {File} - thumbnail of the pdf
-     *
-     * @example
-     *	GET /v1/assets/stats
-     *
-     */
-    async getPDFThumbnail(ctx) {
-        const name = uuidv4();
-        await Fs.mkdir('./asset/doc/thumbnails/', {
-            recursive: true
-        })
-        .catch(e => {
-            this.broker.emit("error", {
-                service: "assets",
-                action: "mkdir folder",
-                caller: "Stock assets",
-                message: e.message
-            });
-            throw new MoleculerError(e.message, HTTP_CODE.INTERVAL_ERROR, "STOCK ASSET", {
-                node: 'assets node'
-            });
-        })
-        return new this.Promise((res,rej) => {
-            gm(ctx.params).selectFrame(0).write(`./asset/doc/thumbnails/${name}.jpg`,async err => {
-                if (err) rej(err)
-                const thumbnail = await Fs.readFile(`./asset/doc/thumbnails/${name}.jpg`)
-                .catch(e => {
-                    this.broker.emit("error", {
-                        service: ctx.service.name,
-                        action: ctx.action.rawName,
-                        caller: ctx.meta.caller,
-                        message: e.message
-                    });
-                    throw new MoleculerError(e.message, HTTP_CODE.INTERVAL_ERROR, "ERROR MONGO", {
-                        node: 'assets node'
-                    });
-                })
-                res(thumbnail.toString('base64'));
-            })
-        })
-
-        return new Promise((resolve, reject) => {
-            gm(ctx.params).selectFrame(0).write(`./asset/doc/thumbnails/${name}.jpg`,err => {
-                if (err) reject(err)
-                resolve('ok');
-            })
-        })
-        return {
-            status: "pending",
-            url: `asset/doc/thumbnails/${name}.jpg`
-        }
     }
 }
 

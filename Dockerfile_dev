@@ -1,0 +1,16 @@
+FROM node:10.16.0-alpine
+
+ENV NODE_ENV=development
+
+RUN mkdir /app
+WORKDIR /app
+RUN apk --update add graphicsmagick
+RUN apk --update add ghostscript
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "dev"]

@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+# ---------- Service containers ----------
+
+  asset:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_dev
+    image: asset
+    restart: on-failure
+    env_file: docker-compose_dev.env
+    environment:
+        SERVICES: assets
+    volumes:
+        - ./services:/app/services:delegated
+        - ./asset:/app/asset
+    external_links:
+      - rabbitmq:rabbitmq
+    networks:
+      upload-moleculer_microServiceNetwork:
+        ipv4_address: 172.28.0.13
+      assetServiceNetwork:
+
+networks:
+  upload-moleculer_microServiceNetwork:
+    external: true
+  assetServiceNetwork:
+    driver: bridge
+    external: false
